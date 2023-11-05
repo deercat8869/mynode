@@ -12,7 +12,7 @@ docker container run deercat/node:v01
 推送到网页端 https://hub.docker.com/repository
 docker push deercat8869/mynode:tagname
 
-#从网页端下载 https://hub.docker.com/repository
+从网页端下载 https://hub.docker.com/repository
 docker pull deercat8869/mynode:tagname
 
 映射端口
@@ -34,28 +34,40 @@ docker container rm -rf myweb
 docker container prune
 
 *********************************
-#随便执行linux几个命令
+随便执行linux几个命令
 docker container run deercat/node:v01 node -v
 docker container run deercat/node:v01 cat /etc/os-release
 
 #进入点Dockerfile的配置
-···
+```
 FROM node
 ENTRYPOINT["node"]
 CMD [""]
-···
+```
 修改完要重新build
 
 又一个docker的例子
-···
+```
 FROM node
 RUN mkdir /src
 COPY hello.js /src
 CMD ["node","/src/hello.js"]
-···
+```
 
 
 
 *************************************************
-sudo apt install openjdk-19-jdk
+做一个开发环境试试
+```
 FROM ubuntu:22.04
+MAINTAINER deercat8869
+WORKDIR /home
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends openjdk-19-jdk \	
+	&& apt-get install -y --no-install-recommends mysql-server-8.0 \
+    && apt-get install -y --no-install-recommends nginx-core \
+    && apt-get install -y --no-install-recommends maven \
+    && apt-get clean
+
+docker image build -t deercat8869/java_mysql:v01 .    
+```
