@@ -9,13 +9,13 @@ docker image build -t deercat/node:v01 .
 
 docker container run deercat/node:v01
 
-#推送到网页端 https://hub.docker.com/repository
+推送到网页端 https://hub.docker.com/repository
 docker push deercat8869/mynode:tagname
 
 #从网页端下载 https://hub.docker.com/repository
 docker pull deercat8869/mynode:tagname
 
-#映射端口
+映射端口
 docker container run -name myweb -d -p 8080:80 deercat/node:v01
 
 启动nginx
