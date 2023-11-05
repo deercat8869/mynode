@@ -71,3 +71,27 @@ RUN apt-get update \
 
 docker image build -t deercat8869/java_mysql:v01 .    
 ```
+
+配置数据库
+参考https://blog.csdn.net/lianghecai52171314/article/details/113807099
+```
+初始化
+sudo mysql_secure_installation
+查看状态
+systemctl status mysql.service
+重启mysql
+sudo /etc/init.d/mysql restart
+
+登录
+sudo mysql -uroot -p
+
+use mysql;
+ALTER USER 'root’@‘localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+ALTER USER 'root’@‘localhost' IDENTIFIED BY '123456' PASSWORD EXPIRE NEVER; 
+update user set host='%' where user='root';
+flush privileges;
+
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 3306 -j ACCEPT
+
+```
